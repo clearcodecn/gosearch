@@ -1,6 +1,8 @@
 ### gosearch
 search pop golang packages then install it, you can provide a part of package name or full package name
 
+![images/gosearch.gif](images/gosearch.gif)
+
 ### Install
 ```
 go get github.com/clearcodecn/gosearch
