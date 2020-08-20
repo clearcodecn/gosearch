@@ -4,16 +4,21 @@ go 1.14
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.1.1
-	github.com/gin-gonic/gin v1.6.3 // indirect
-	github.com/golang/gddo v0.0.0-20200715224205-051695c33a3f
-	github.com/goreleaser/goreleaser v0.141.0 // indirect
-	github.com/kyokomi/emoji v2.2.4+incompatible // indirect
-	github.com/manifoldco/promptui v0.7.0
-	github.com/mattn/go-isatty v0.0.12 // indirect
-	github.com/rifflock/lfshook v0.0.0-20180920164130-b9218ef580f5 // indirect
-	github.com/sirupsen/logrus v1.6.0 // indirect
+	github.com/google/go-cmp v0.5.0 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/kyokomi/emoji v2.2.4+incompatible
+	github.com/mattn/go-colorable v0.1.7 // indirect
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	github.com/onsi/ginkgo v1.13.0 // indirect
 	github.com/spf13/cobra v1.0.0
+	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/syndtr/goleveldb v1.0.0
-	go.opencensus.io v0.22.4 // indirect
-	yunion.io/x/log v0.0.0-20200313080802-57a4ce5966b3 // indirect
+	golang.org/x/crypto v0.0.0-20200709230013-948cd5f35899 // indirect
+	golang.org/x/net v0.0.0-20200707034311-ab3426394381 // indirect
+	golang.org/x/sys v0.0.0-20200625212154-ddb9806d33ae // indirect
+	golang.org/x/text v0.3.3 // indirect
+	google.golang.org/protobuf v1.24.0 // indirect
+	gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200605160147-a5ece683394c // indirect
 )

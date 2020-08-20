@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/golang/gddo/database"
 	"github.com/kyokomi/emoji"
 	"github.com/spf13/cobra"
 	"github.com/syndtr/goleveldb/leveldb"
@@ -17,6 +16,16 @@ import (
 	"strings"
 	"sync"
 )
+
+type Package struct {
+	Name        string  `json:"name,omitempty"`
+	Path        string  `json:"path"`
+	ImportCount int     `json:"import_count"`
+	Synopsis    string  `json:"synopsis,omitempty"`
+	Fork        bool    `json:"fork,omitempty"`
+	Stars       int     `json:"stars,omitempty"`
+	Score       float64 `json:"score,omitempty"`
+}
 
 const apiURL = "https://api.godoc.org/search?q="
 const Version = "v0.0.1"
@@ -102,7 +111,7 @@ func search(cmd *cobra.Command, args []string) {
 }
 
 func searchPackage(pkg string) error {
-	var packages []database.Package
+	var packages []Package
 	if db != nil {
 		data, err := db.Get([]byte(pkg), nil)
 		if err == nil {
@@ -128,7 +137,7 @@ func searchPackage(pkg string) error {
 	return nil
 }
 
-func selectAndInstall(packages []database.Package) error {
+func selectAndInstall(packages []Package) error {
 	var items []string
 	for _, p := range packages {
 		items = append(items, fmt.Sprintf("%s\t%s\t%s", p.Name, p.Path, p.Synopsis))
@@ -165,10 +174,10 @@ func selectAndInstall(packages []database.Package) error {
 }
 
 type Response struct {
-	Results []database.Package `json:"results"`
+	Results []Package `json:"results"`
 }
 
-func doSearch(pkg string) ([]database.Package, error) {
+func doSearch(pkg string) ([]Package, error) {
 	url := fmt.Sprintf("%s%s", apiURL, pkg)
 	resp, err := http.DefaultClient.Get(url)
 	if err != nil {
