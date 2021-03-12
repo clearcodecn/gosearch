@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
+	"os"
 )
 
 const apiURL = "https://api.godoc.org/search?q="
@@ -20,7 +20,6 @@ type Package struct {
 	Score       float64 `json:"score,omitempty"`
 }
 
-
 type Response struct {
 	Results []Package `json:"results"`
 }
@@ -34,7 +33,7 @@ func doSearch(pkg string) ([]Package, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		io.Copy(ioutil.Discard, resp.Body)
+		io.Copy(os.Stderr, resp.Body)
 		return nil, fmt.Errorf("failed to search package, server return code=%s", resp.Status)
 	}
 	var res Response
