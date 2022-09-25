@@ -1,3 +1,4 @@
 gosearch
 *.exe
 .idea/
+dist/

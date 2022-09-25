@@ -4,9 +4,14 @@ search pop golang packages then install it, you can provide a part of package na
 ![images/gosearch.gif](images/gosearch.gif)
 
 ### Install
+
+* install by go
 ```
 go get github.com/clearcodecn/gosearch
 ```
+
+* download from release to click [here](https://github.com/clearcodecn/gosearch/releases)
+
 
 ### Search a package via keyword
 - noteSearch package with full package will run `go get packageName` directly
