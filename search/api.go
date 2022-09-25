@@ -1,14 +1,15 @@
-package lib
+package search
 
 import (
-	"encoding/json"
 	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
-const apiURL = "https://api.godoc.org/search?q="
+const apiURL = "https://pkg.go.dev/search?limit=50&m=package&q="
 
 type Package struct {
 	Name        string  `json:"name,omitempty"`
@@ -36,7 +37,26 @@ func doSearch(pkg string) ([]Package, error) {
 		io.Copy(os.Stderr, resp.Body)
 		return nil, fmt.Errorf("failed to search package, server return code=%s", resp.Status)
 	}
-	var res Response
-	err = json.NewDecoder(resp.Body).Decode(&res)
-	return res.Results, err
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	var pkgs []Package
+	doc.Find("div.SearchSnippet").Each(func(i int, selection *goquery.Selection) {
+		path := removeQuote(selection.Find(".SearchSnippet-header-path").Text())
+		desc := selection.Find(".SearchSnippet-synopsiss").Text()
+		name := removeQuote(selection.RemoveFiltered(".SearchSnippet-header-path").Find("h2 a").Text())
+		pkgs = append(pkgs, Package{
+			Name:     name,
+			Path:     path,
+			Synopsis: desc,
+		})
+	})
+	return pkgs, nil
+}
+
+var _replacer = strings.NewReplacer("(", "", ")", "", " ", "")
+
+func removeQuote(s string) string {
+	return _replacer.Replace(s)
 }

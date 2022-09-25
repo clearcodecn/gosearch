@@ -1,4 +1,4 @@
-package lib
+package search
 
 import (
 	"encoding/json"
@@ -14,7 +14,7 @@ import (
 	"sync"
 )
 
-const Version = "v0.0.2"
+const Version = "v0.0.3"
 
 var (
 	db      *leveldb.DB

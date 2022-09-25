@@ -1,7 +1,7 @@
 package main
 
-import "github.com/clearcodecn/gosearch/lib"
+import "github.com/clearcodecn/gosearch/search"
 
 func main() {
-	lib.Main()
+	search.Main()
 }
