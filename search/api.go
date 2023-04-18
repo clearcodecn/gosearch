@@ -42,12 +42,11 @@ func doSearch(pkg string) ([]Package, error) {
 		return nil, err
 	}
 	var pkgs []Package
-	doc.Find("div.SearchSnippet").Each(func(i int, selection *goquery.Selection) {
+	doc.Find(".go-Content.SearchResults .SearchSnippet").Each(func(i int, selection *goquery.Selection) {
 		path := removeQuote(selection.Find(".SearchSnippet-header-path").Text())
-		desc := selection.Find(".SearchSnippet-synopsiss").Text()
-		name := removeQuote(selection.RemoveFiltered(".SearchSnippet-header-path").Find("h2 a").Text())
+		desc := removeQuote(selection.Find(".SearchSnippet-header-path").Text())
 		pkgs = append(pkgs, Package{
-			Name:     name,
+			Name:     path,
 			Path:     path,
 			Synopsis: desc,
 		})
